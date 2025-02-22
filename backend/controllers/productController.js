@@ -35,8 +35,14 @@ exports.getProductById = async (req, res) => {
 
 // Update a product (Admin only)
 exports.updateProduct = async (req, res) => {
+    const { id } = req.params;
+    const { name, description, price, category, image, stock } = req.body;
     try {
-        const product = await Product.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        const product = await Product.findByIdAndUpdate(
+            id,
+            { name, description, price, category, image, stock },
+            { new: true }
+        );
         if (!product) return res.status(404).json({ error: 'Product not found' });
         res.json(product);
     } catch (err) {
@@ -46,8 +52,9 @@ exports.updateProduct = async (req, res) => {
 
 // Delete a product (Admin only)
 exports.deleteProduct = async (req, res) => {
+    const { id } = req.params;
     try {
-        const product = await Product.findByIdAndDelete(req.params.id);
+        const product = await Product.findByIdAndDelete(id);
         if (!product) return res.status(404).json({ error: 'Product not found' });
         res.json({ message: 'Product deleted successfully' });
     } catch (err) {

@@ -9,28 +9,44 @@
 </head>
 
 <body>
-    <h1>Admin Panel</h1>
     <nav>
         <a href="/">Home</a>
-        <a href="/admin">Admin</a>
+        <a href="/products">Products</a>
+        <a href="/cart">Cart</a>
+        <a href="/login">Login</a>
+        <a href="/register">Register</a>
     </nav>
+    
+    <header>
+        <nav>
+            <div class="logo">Shoe Store Admin</div>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/admin">Admin</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="container">
+        <h1>Admin Panel</h1>
 
-    <h2>Add New Product</h2>
-    <form id="addProductForm">
-        <input type="text" id="name" placeholder="Product Name" required>
-        <input type="text" id="description" placeholder="Description" required>
-        <input type="number" id="price" placeholder="Price" required>
-        <input type="text" id="category" placeholder="Category" required>
-        <input type="text" id="image" placeholder="Image URL" required>
-        <input type="number" id="stock" placeholder="Stock" required>
-        <button type="submit">Add Product</button>
-    </form>
+        <!-- Add Product Form -->
+        <form id="addProductForm">
+            <h2>Add New Product</h2>
+            <input type="text" id="name" placeholder="Product Name" required>
+            <input type="text" id="description" placeholder="Description" required>
+            <input type="number" id="price" placeholder="Price" required>
+            <input type="text" id="category" placeholder="Category" required>
+            <input type="text" id="image" placeholder="Image URL" required>
+            <input type="number" id="stock" placeholder="Stock" required>
+            <button type="submit">Add Product</button>
+        </form>
 
-    <h2>Product List</h2>
-    <div id="productList">
-        <!-- Products will be dynamically inserted here -->
+        <!-- Product List -->
+        <h2>Product List</h2>
+        <div id="productList">
+            <!-- Products will be dynamically inserted here -->
+        </div>
     </div>
-
     <script src="/js/admin.js"></script>
 </body>
 

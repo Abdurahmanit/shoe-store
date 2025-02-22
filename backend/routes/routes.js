@@ -33,7 +33,7 @@ router.get('/profile', authenticate, userController.getUserProfile);
 router.put('/profile', authenticate, userController.updateUserProfile);
 router.delete('/profile', authenticate, userController.deleteUserAccount);
 
-// Admin routes
+// Admin 
 router.get('/admin/products', authenticate, isAdmin, productController.getAllProducts);
 router.post('/admin/products', authenticate, isAdmin, productController.createProduct);
 router.put('/admin/products/:id', authenticate, isAdmin, productController.updateProduct);

@@ -12,7 +12,7 @@ const fetchProducts = async () => {
 
     products.forEach((product) => {
         productList.innerHTML += `
-      <div class="product">
+      <div class="product-card">
         <h3>${product.name}</h3>
         <p>${product.description}</p>
         <p>$${product.price}</p>
