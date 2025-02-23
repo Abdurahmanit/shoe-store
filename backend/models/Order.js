@@ -9,7 +9,9 @@ const orderSchema = new mongoose.Schema({
         },
     ],
     totalAmount: { type: Number, required: true },
-    status: { type: String, enum: ['pending', 'completed', 'cancelled'], default: 'pending' },
+    paymentIntentId: { type: String, required: true }, // Фейковый ID платежа
+    cardNumber: { type: String, required: true }, // Номер карты
+    status: { type: String, enum: ['pending', 'paid', 'cancelled'], default: 'pending' },
     createdAt: { type: Date, default: Date.now },
 });
 

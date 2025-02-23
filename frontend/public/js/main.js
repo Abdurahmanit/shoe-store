@@ -83,3 +83,25 @@ window.addToCart = async (productId) => {
         alert('Failed to add product to cart.');
     }
 };
+
+const fetchCartTotal = async () => {
+    const token = localStorage.getItem('token');
+    const response = await fetch('/api/cart', {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+    const cart = await response.json();
+    return cart.products.reduce((total, item) => total + item.product.price * item.quantity, 0);
+};
+
+document.getElementById('checkoutButton')?.addEventListener('click', async () => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+        alert('Please login to proceed to checkout.');
+        return;
+    }
+
+    // Перенаправляем на страницу оформления заказа
+    window.location.href = '/api/checkout';
+});

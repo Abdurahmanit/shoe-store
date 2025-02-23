@@ -27,6 +27,7 @@ router.delete('/cart', authenticate, cartController.removeFromCart);
 router.post('/orders', authenticate, orderController.createOrder);
 router.get('/orders', authenticate, orderController.getUserOrders);
 router.get('/admin/orders', authenticate, isAdmin, orderController.getAllOrders);
+router.post('/orders/create-payment-intent', authenticate, orderController.createPaymentIntent);
 
 // User routes
 router.get('/profile', authenticate, userController.getUserProfile);
@@ -38,5 +39,9 @@ router.get('/admin/products', authenticate, isAdmin, productController.getAllPro
 router.post('/admin/products', authenticate, isAdmin, productController.createProduct);
 router.put('/admin/products/:id', authenticate, isAdmin, productController.updateProduct);
 router.delete('/admin/products/:id', authenticate, isAdmin, productController.deleteProduct);
+
+router.get('/checkout', (req, res) => {
+    res.render('checkout'); // Рендерим страницу checkout.ejs
+});
 
 module.exports = router;
