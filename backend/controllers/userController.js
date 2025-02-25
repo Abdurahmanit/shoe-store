@@ -62,3 +62,14 @@ exports.addToFavorites = async (req, res) => {
         res.status(500).json({ error: err.message });
     }
 };
+
+exports.getFavorites = async (req, res) => {
+    try {
+        const user = await User.findById(req.user.id).populate('favorites');
+        if (!user) return res.status(404).json({ error: 'User not found' });
+
+        res.json(user.favorites); // Отправляем избранные товары
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+};
