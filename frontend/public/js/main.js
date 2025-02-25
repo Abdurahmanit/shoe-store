@@ -52,11 +52,15 @@ if (window.location.pathname === '/products') {
             products.forEach((product) => {
                 const imagePath = `/images/${product.image}`; // Путь к картинке
 
+                // Отображаем категории, разделяя их запятыми
+                const categories = Array.isArray(product.category) ? product.category.join(', ') : product.category;
+
                 productsDiv.innerHTML += `
                     <div class="product">
                         <img src="${imagePath}" alt="${product.name}" class="product-image">
                         <h3>${product.name}</h3>
                         <p>${product.description}</p>
+                        <p>Categories: <strong>${categories}</strong></p>
                         <p>$${product.price}</p>
                         <button onclick="addToCart('${product._id}')">Add to Cart</button>
                     </div>

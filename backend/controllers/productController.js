@@ -14,7 +14,14 @@ exports.getAllProducts = async (req, res) => {
 exports.createProduct = async (req, res) => {
     const { name, description, price, category, image, stock } = req.body;
     try {
-        const product = new Product({ name, description, price, category, image, stock });
+        const product = new Product({
+            name,
+            description,
+            price,
+            category: Array.isArray(category) ? category : [category], // Преобразуем в массив
+            image,
+            stock
+        });
         await product.save();
         res.status(201).json(product);
     } catch (err) {
@@ -40,7 +47,14 @@ exports.updateProduct = async (req, res) => {
     try {
         const product = await Product.findByIdAndUpdate(
             id,
-            { name, description, price, category, image, stock },
+            {
+                name,
+                description,
+                price,
+                category: Array.isArray(category) ? category : [category], // Преобразуем в массив
+                image,
+                stock
+            },
             { new: true }
         );
         if (!product) return res.status(404).json({ error: 'Product not found' });
