@@ -10,7 +10,7 @@ exports.register = async (req, res) => {
             username,
             email,
             password,
-            favorites: [] // Добавляем пустое избранное
+            favorites: []
         });
         await user.save();
         res.status(201).json({ message: 'User registered successfully' });
@@ -41,7 +41,7 @@ exports.login = async (req, res) => {
                 username: user.username,
                 email: user.email,
                 role: user.role,
-                favorites: user.favorites // Добавляем избранное в ответ
+                favorites: user.favorites
             }
         });
     } catch (err) {

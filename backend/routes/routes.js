@@ -34,7 +34,7 @@ router.get('/profile', authenticate, userController.getUserProfile);
 router.put('/profile', authenticate, userController.updateUserProfile);
 router.delete('/profile', authenticate, userController.deleteUserAccount);
 router.post('/favorites', authenticate, userController.addToFavorites);
-router.get('/favorites', authenticate, userController.getFavorites); // Новый GET-запрос
+router.get('/favorites', authenticate, userController.getFavorites);
 
 // Admin 
 router.get('/admin/products', authenticate, isAdmin, productController.getAllProducts);

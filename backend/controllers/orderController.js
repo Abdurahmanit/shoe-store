@@ -1,4 +1,4 @@
-require('dotenv').config(); // Добавьте эту строку в начале файла
+require('dotenv').config();
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 const Order = require('../models/Order');
 const Cart = require('../models/Cart');
@@ -8,7 +8,7 @@ exports.createPaymentIntent = async (req, res) => {
 
     try {
         const paymentIntent = await stripe.paymentIntents.create({
-            amount: totalAmount * 100, // Stripe uses cents
+            amount: totalAmount * 100,
             currency: 'usd',
         });
 
@@ -36,13 +36,13 @@ exports.createOrder = async (req, res) => {
                 quantity: item.quantity,
             })),
             totalAmount,
-            paymentIntentId, // Фейковый ID платежа
-            cardNumber, // Сохраняем номер карты
-            status: 'paid', // Устанавливаем статус "paid"
+            paymentIntentId,
+            cardNumber,
+            status: 'paid',
         });
 
         await order.save();
-        await Cart.findByIdAndDelete(cart._id); // Очистить корзину
+        await Cart.findByIdAndDelete(cart._id);
 
         res.status(201).json(order);
     } catch (err) {

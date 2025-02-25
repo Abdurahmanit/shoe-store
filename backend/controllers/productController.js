@@ -18,7 +18,7 @@ exports.createProduct = async (req, res) => {
             name,
             description,
             price,
-            category: Array.isArray(category) ? category : [category], // Преобразуем в массив
+            category: Array.isArray(category) ? category : [category],
             image,
             stock
         });
@@ -51,7 +51,7 @@ exports.updateProduct = async (req, res) => {
                 name,
                 description,
                 price,
-                category: Array.isArray(category) ? category : [category], // Преобразуем в массив
+                category: Array.isArray(category) ? category : [category],
                 image,
                 stock
             },

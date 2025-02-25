@@ -47,11 +47,9 @@ exports.addToFavorites = async (req, res) => {
         const { productId } = req.body;
         if (!productId) return res.status(400).json({ error: 'Product ID is required' });
 
-        // Проверяем, существует ли продукт
         const product = await Product.findById(productId);
         if (!product) return res.status(404).json({ error: 'Product not found' });
 
-        // Проверяем, есть ли продукт уже в избранном
         if (!user.favorites.includes(productId)) {
             user.favorites.push(productId);
             await user.save();
@@ -68,7 +66,7 @@ exports.getFavorites = async (req, res) => {
         const user = await User.findById(req.user.id).populate('favorites');
         if (!user) return res.status(404).json({ error: 'User not found' });
 
-        res.json(user.favorites); // Отправляем избранные товары
+        res.json(user.favorites);
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
