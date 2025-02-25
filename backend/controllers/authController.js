@@ -6,7 +6,12 @@ const bcrypt = require('bcryptjs');
 exports.register = async (req, res) => {
     const { username, email, password } = req.body;
     try {
-        const user = new User({ username, email, password });
+        const user = new User({
+            username,
+            email,
+            password,
+            favorites: [] // Добавляем пустое избранное
+        });
         await user.save();
         res.status(201).json({ message: 'User registered successfully' });
     } catch (err) {
@@ -23,14 +28,22 @@ exports.login = async (req, res) => {
             return res.status(401).json({ error: 'Invalid credentials' });
         }
 
-        // Include user role in the token payload
         const token = jwt.sign(
-            { id: user._id, role: user.role }, // Include role here
+            { id: user._id, role: user.role },
             process.env.JWT_SECRET,
             { expiresIn: '1h' }
         );
 
-        res.json({ token });
+        res.json({
+            token,
+            user: {
+                id: user._id,
+                username: user.username,
+                email: user.email,
+                role: user.role,
+                favorites: user.favorites // Добавляем избранное в ответ
+            }
+        });
     } catch (err) {
         res.status(500).json({ error: err.message });
     }

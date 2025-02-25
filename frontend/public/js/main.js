@@ -51,23 +51,45 @@ if (window.location.pathname === '/products') {
 
             products.forEach((product) => {
                 const imagePath = `/images/${product.image}`; // Путь к картинке
-
-                // Отображаем категории, разделяя их запятыми
                 const categories = Array.isArray(product.category) ? product.category.join(', ') : product.category;
 
                 productsDiv.innerHTML += `
-                    <div class="product">
+                    <div class="product" id="product-${product._id}">
                         <img src="${imagePath}" alt="${product.name}" class="product-image">
                         <h3>${product.name}</h3>
                         <p>${product.description}</p>
                         <p>Categories: <strong>${categories}</strong></p>
                         <p>$${product.price}</p>
                         <button onclick="addToCart('${product._id}')">Add to Cart</button>
+                        <span class="favorite-icon" onclick="toggleFavorite('${product._id}')">⭐</span>
                     </div>
                 `;
             });
         })
         .catch((err) => console.error("Error fetching products:", err));
+}
+
+// Функция для добавления/удаления из избранного
+function toggleFavorite(productId) {
+    const favoriteIcon = document.querySelector(`#product-${productId} .favorite-icon`);
+
+    fetch('/api/favorites', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('token')}` // Используем токен авторизации
+        },
+        body: JSON.stringify({ productId })
+    })
+        .then(res => res.json())
+        .then(data => {
+            if (data.favorites.includes(productId)) {
+                favoriteIcon.classList.add('favorited');
+            } else {
+                favoriteIcon.classList.remove('favorited');
+            }
+        })
+        .catch(err => console.error('Error:', err));
 }
 
 // Add to Cart

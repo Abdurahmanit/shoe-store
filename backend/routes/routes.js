@@ -33,6 +33,7 @@ router.post('/orders/create-payment-intent', authenticate, orderController.creat
 router.get('/profile', authenticate, userController.getUserProfile);
 router.put('/profile', authenticate, userController.updateUserProfile);
 router.delete('/profile', authenticate, userController.deleteUserAccount);
+router.post('/favorites', authenticate, userController.addToFavorites);
 
 // Admin 
 router.get('/admin/products', authenticate, isAdmin, productController.getAllProducts);

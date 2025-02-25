@@ -1,4 +1,5 @@
 const User = require('../models/User');
+const Product = require('../models/Product');
 
 // Get user profile
 exports.getUserProfile = async (req, res) => {
@@ -33,6 +34,30 @@ exports.deleteUserAccount = async (req, res) => {
         const user = await User.findByIdAndDelete(req.user.id);
         if (!user) return res.status(404).json({ error: 'User not found' });
         res.json({ message: 'User account deleted successfully' });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+};
+
+exports.addToFavorites = async (req, res) => {
+    try {
+        const user = await User.findById(req.user.id);
+        if (!user) return res.status(404).json({ error: 'User not found' });
+
+        const { productId } = req.body;
+        if (!productId) return res.status(400).json({ error: 'Product ID is required' });
+
+        // Проверяем, существует ли продукт
+        const product = await Product.findById(productId);
+        if (!product) return res.status(404).json({ error: 'Product not found' });
+
+        // Проверяем, есть ли продукт уже в избранном
+        if (!user.favorites.includes(productId)) {
+            user.favorites.push(productId);
+            await user.save();
+        }
+
+        res.json(user.favorites);
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
