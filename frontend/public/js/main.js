@@ -47,17 +47,23 @@ if (window.location.pathname === '/products') {
         .then((res) => res.json())
         .then((products) => {
             const productsDiv = document.getElementById('products');
+            productsDiv.innerHTML = ''; // Очистим перед вставкой
+
             products.forEach((product) => {
+                const imagePath = `/images/${product.image}`; // Путь к картинке
+
                 productsDiv.innerHTML += `
-          <div class="product">
-            <h3>${product.name}</h3>
-            <p>${product.description}</p>
-            <p>$${product.price}</p>
-            <button onclick="addToCart('${product._id}')">Add to Cart</button>
-          </div>
-        `;
+                    <div class="product">
+                        <img src="${imagePath}" alt="${product.name}" class="product-image">
+                        <h3>${product.name}</h3>
+                        <p>${product.description}</p>
+                        <p>$${product.price}</p>
+                        <button onclick="addToCart('${product._id}')">Add to Cart</button>
+                    </div>
+                `;
             });
-        });
+        })
+        .catch((err) => console.error("Error fetching products:", err));
 }
 
 // Add to Cart
