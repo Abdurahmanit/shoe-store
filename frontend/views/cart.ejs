@@ -6,24 +6,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cart</title>
     <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body>
-    <nav>
-        <a href="/">Home</a>
-        <a href="/products">Products</a>
-        <a href="/cart">Cart</a>
-        <a href="/login">Login</a>
-        <a href="/register">Register</a>
-    </nav>
+  <header>
+        <nav>
+            <div class="logo">Shoe Store</div>
+            <ul>
+                <li><a href="/"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="/products"><i class="fas fa-box-open"></i> Products</a></li>
+                <li><a href="/cart"><i class="fas fa-shopping-cart"></i> Cart</a></li>
+                <li><a href="/login"><i class="fas fa-sign-in-alt"></i> Login</a></li>
+                <li><a href="/register"><i class="fas fa-user-plus"></i> Register</a></li>
+                <li><a href="/profile"><i class="fas fa-user"></i> Profile</a></li>
+                 <li><a href="/api/favorites"><i class="fa-regular fa-star"></i></a></li>
+            </ul>
+        </nav>
+    </header>
 
     <h1>Your Cart</h1>
-    <div id="cart">
-        <!-- Cart items will be dynamically inserted here -->
+
+    <div id="cart" class="cart-container">
+        <!— Товары будут добавляться сюда -->
     </div>
-    <button id="checkoutButton">Checkout</button>
+
+    <div class="cart-summary">
+      <h2>Итого</h2>
+      <p>Сумма: <span id='total-amount'>0.00</span></p>
+      <button id="checkoutButton" class='button'>Checkout</button>
+    </div>
+
+    <script src="/js/cart.js"></script> 
     <script src="/js/main.js"></script>
-    <script src="/js/cart.js"></script>
 </body>
 
 </html>

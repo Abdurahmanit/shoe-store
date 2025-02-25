@@ -6,26 +6,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Panel</title>
     <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body>
-    <nav>
-        <a href="/">Home</a>
-        <a href="/products">Products</a>
-        <a href="/cart">Cart</a>
-        <a href="/login">Login</a>
-        <a href="/register">Register</a>
-    </nav>
-    
     <header>
         <nav>
             <div class="logo">Shoe Store Admin</div>
             <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="/admin">Admin</a></li>
+                <li><a href="/"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="/admin"><i class="fa-solid fa-gear"></i> Admin</a></li>
             </ul>
+            <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+                <i class="fas fa-moon"></i>
+              </button>
+              <button class="hamburger">☰</button>
         </nav>
     </header>
+
     <div class="container">
         <h1>Admin Panel</h1>
 

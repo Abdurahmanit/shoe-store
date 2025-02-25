@@ -1,3 +1,5 @@
+// main.js
+
 // Login
 document.getElementById('loginForm')?.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -40,34 +42,6 @@ document.getElementById('registerForm')?.addEventListener('submit', async (e) =>
         alert(data.error);
     }
 });
-
-// Fetch and display products
-if (window.location.pathname === '/products') {
-    fetch('/api/products')
-        .then((res) => res.json())
-        .then((products) => {
-            const productsDiv = document.getElementById('products');
-            productsDiv.innerHTML = ''; // Очистим перед вставкой
-
-            products.forEach((product) => {
-                const imagePath = `/images/${product.image}`; // Путь к картинке
-                const categories = Array.isArray(product.category) ? product.category.join(', ') : product.category;
-
-                productsDiv.innerHTML += `
-                    <div class="product" id="product-${product._id}">
-                        <img src="${imagePath}" alt="${product.name}" class="product-image">
-                        <h3>${product.name}</h3>
-                        <p>${product.description}</p>
-                        <p>Categories: <strong>${categories}</strong></p>
-                        <p>$${product.price}</p>
-                        <button onclick="addToCart('${product._id}')">Add to Cart</button>
-                        <span class="favorite-icon" onclick="toggleFavorite('${product._id}')">⭐</span>
-                    </div>
-                `;
-            });
-        })
-        .catch((err) => console.error("Error fetching products:", err));
-}
 
 // Функция для добавления/удаления из избранного
 function toggleFavorite(productId) {
@@ -136,4 +110,23 @@ document.getElementById('checkoutButton')?.addEventListener('click', async () =>
 
     // Перенаправляем на страницу оформления заказа
     window.location.href = '/api/checkout';
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    const nav = document.querySelector('nav');
+    const loginLink = nav.querySelector('a[href="/login"]');
+    const registerLink = nav.querySelector('a[href="/register"]');
+    const profileLink = nav.querySelector('a[href="/profile"]');
+
+    const token = localStorage.getItem('token');
+
+    if (token) {
+        loginLink.style.display = 'none';
+        registerLink.style.display = 'none';
+        profileLink.style.display = 'inline-block';
+    } else {
+        loginLink.style.display = 'inline-block';
+        registerLink.style.display = 'inline-block';
+        profileLink.style.display = 'none';
+    }
 });

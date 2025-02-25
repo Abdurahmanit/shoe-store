@@ -1,4 +1,8 @@
-document.addEventListener('DOMContentLoaded', async () => {
+document.addEventListener('DOMContentLoaded', () => {
+    displayCart();
+});
+
+async function displayCart() {
     const token = localStorage.getItem('token');
     if (!token) {
         alert('Please login to view your cart.');
@@ -15,31 +19,88 @@ document.addEventListener('DOMContentLoaded', async () => {
         const cart = await response.json();
 
         const cartDiv = document.getElementById('cart');
+        cartDiv.innerHTML = '';
+
         if (cart.products.length === 0) {
             cartDiv.innerHTML = '<p>Your cart is empty.</p>';
+            document.getElementById('total-amount').textContent = '$0.00';
             return;
         }
 
-        cartDiv.innerHTML = cart.products
-            .map(
-                (item) => `
-        <div class="cart-item">
-          <h3>${item.product.name}</h3>
-          <p>${item.product.description}</p>
-          <p>$${item.product.price}</p>
-          <p>Quantity: ${item.quantity}</p>
-          <button onclick="removeFromCart('${item.product._id}')">Remove</button>
-        </div>
-      `
-            )
-            .join('');
+        let cartHTML = '';
+        cart.products.forEach(item => {
+            cartHTML += `
+                <div class="cart-item">
+                    <img src="/images/${item.product.image}" alt="${item.product.name}">
+                    <div class="cart-item-details">
+                        <h3>${item.product.name}</h3>
+                        <p>${item.product.description}</p>
+                        <p class="cart-item-price">$${item.product.price}</p>
+                        <div class="cart-item-quantity">
+                            <button class='button-decrement' data-product-id="${item.product._id}">-</button>
+                            <span>${item.quantity}</span>
+                            <button class='button-increment' data-product-id="${item.product._id}">+</button>
+                        </div>
+                        <button class="remove-button" data-product-id="${item.product._id}">Remove</button>
+                    </div>
+                </div>
+            `;
+        });
+
+      cartDiv.innerHTML = cartHTML;
+      attachCartItemEventListeners();
+      updateTotal();
+
     } catch (err) {
         console.error('Error fetching cart:', err);
         alert('Failed to load cart.');
     }
-});
+}
 
-// Remove from Cart
+async function updateTotal() {
+    const total = await fetchCartTotal();
+    document.getElementById('total-amount').textContent = `$${total.toFixed(2)}`;
+}
+function attachCartItemEventListeners() {
+    document.querySelectorAll('.button-increment').forEach(button => {
+        button.addEventListener('click', async (event) => {
+            const productId = event.target.dataset.productId;
+            await changeQuantity(productId, 1);
+             displayCart();
+        });
+    });
+
+    document.querySelectorAll('.button-decrement').forEach(button => {
+        button.addEventListener('click', async (event) => {
+            const productId = event.target.dataset.productId;
+             await changeQuantity(productId, -1);
+            displayCart();
+        });
+    });
+     document.querySelectorAll('.remove-button').forEach(button => {
+        button.addEventListener('click', async (event) => {
+          const productId = event.target.dataset.productId;
+          await removeFromCart(productId);
+          displayCart();
+        });
+    });
+}
+async function changeQuantity(productId, change) {
+    const token = localStorage.getItem('token');
+
+    const response = await fetch('/api/cart', {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ productId, quantity: change }),
+    });
+    if(!response.ok){
+       alert('Failed to change quantity.');
+    }
+}
+
 window.removeFromCart = async (productId) => {
     const token = localStorage.getItem('token');
     if (!token) {
@@ -56,10 +117,7 @@ window.removeFromCart = async (productId) => {
         body: JSON.stringify({ productId }),
     });
 
-    if (response.ok) {
-        alert('Product removed from cart!');
-        window.location.reload(); // Обновляем страницу
-    } else {
+    if (!response.ok) {
         alert('Failed to remove product from cart.');
     }
 };

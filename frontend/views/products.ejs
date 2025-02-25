@@ -5,24 +5,67 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Products</title>
-    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/styles.css?v=5"> <!—  Увеличь версию! -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body>
+ <header>
     <nav>
-        <a href="/">Home</a>
-        <a href="/products">Products</a>
-        <a href="/cart">Cart</a>
-        <a href="/login">Login</a>
-        <a href="/register">Register</a>
-        <a href="/profile">Profile</a>
+      <div class="logo">Shoe Store</div>
+            <ul>
+                <li><a href="/"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="/products"><i class="fas fa-box-open"></i> Products</a></li>
+                <li><a href="/cart"><i class="fas fa-shopping-cart"></i> Cart</a></li>
+                <li><a href="/login"><i class="fas fa-sign-in-alt"></i> Login</a></li>
+                <li><a href="/register"><i class="fas fa-user-plus"></i> Register</a></li>
+                <li><a href="/profile"><i class="fas fa-user"></i> Profile</a></li>
+                 <li><a href="/api/favorites"><i class="fa-regular fa-star"></i></a></li>
+            </ul>
     </nav>
-    
-    <h1>Products</h1>
-    <div id="products">
-        <!-- Products will be dynamically inserted here -->
+  </header>
+
+    <div class="breadcrumbs">
+        <a href="/">Home</a> / <a href="/products">Products</a>
     </div>
+
+    <h1>Products</h1>
+
+    <div class="products-container">
+        <aside class="filters">
+            <h3>Filter by Category</h3>
+            <ul>
+                <li>
+                    <label><input type="checkbox" name="category" value="all" checked> All</label>
+                </li>
+                <li>
+                    <label><input type="checkbox" name="category" value="men"> Men</label>
+                </li>
+                <li>
+                    <label><input type="checkbox" name="category" value="women"> Women</label>
+                </li>
+                <li>
+                    <label><input type="checkbox" name="category" value="running"> Running</label>
+                </li>
+                <li>
+                    <label><input type="checkbox" name="category" value="basketball"> Basketball</label>
+                </li>
+                <li>
+                    <label><input type="checkbox" name="category" value="casual"> Casual</label>
+                </li>
+                <li>
+                    <label><input type="checkbox" name="category" value="skate"> Skate</label>
+                </li>
+            </ul>
+        </aside>
+
+        <div id="products" class="product-grid">
+            <!—  products.js добавляет карточки сюда  -->
+        </div>
+    </div>
+
     <script src="/js/main.js"></script>
+    <script src="/js/products.js"></script>
 </body>
 
 </html>
