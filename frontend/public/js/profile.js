@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                         <img src="/images/${product.image}" alt="${product.name}" class="product-image">
                         <h4>${product.name}</h4>
                         <p>$${product.price}</p>
-                        <button onclick="addToCart('${product._id}')">Add to Cart</button>
+                        <button onclick="addToCart('${product._id}')" class="button">Add to Cart</button>
                     </div>
                 `
                 )
