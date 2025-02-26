@@ -118,13 +118,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const registerLink = nav.querySelector('a[href="/register"]');
     const profileLink = nav.querySelector('a[href="/profile"]');
 
+    // Проверяем, есть ли токен в localStorage (он появляется после логина)
     const token = localStorage.getItem('token');
 
     if (token) {
+        // Если пользователь залогинен, скрываем "Login" и "Register"
         loginLink.style.display = 'none';
         registerLink.style.display = 'none';
-        profileLink.style.display = 'inline-block';
+        profileLink.style.display = 'inline-block'; // Показываем "Profile"
     } else {
+        // Если не залогинен, показываем "Login" и "Register", скрываем "Profile"
         loginLink.style.display = 'inline-block';
         registerLink.style.display = 'inline-block';
         profileLink.style.display = 'none';

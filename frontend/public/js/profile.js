@@ -128,3 +128,8 @@ async function addToCart(productId) {
         alert('Failed to add product to cart.');
     }
 }
+
+document.getElementById('logoutButton')?.addEventListener('click', () => {
+    localStorage.removeItem('token'); // Удаляем токен из localStorage
+    window.location.href = '/login'; // Перенаправляем на страницу логина
+});

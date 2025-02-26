@@ -10,6 +10,7 @@ const { authenticate, isAdmin } = require('../middlewares/authMiddleware');
 // Auth routes
 router.post('/register', authController.register);
 router.post('/login', authController.login);
+router.post('/logout', authController.logout);
 
 // Product routes
 router.get('/products', productController.getAllProducts);

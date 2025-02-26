@@ -681,3 +681,7 @@ footer {
   text-align: center;
   color: #777
 }
+
+.hidden {
+    display: none !important;
+}
