@@ -1,5 +1,3 @@
-// main.js
-
 // Login
 document.getElementById('loginForm')?.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -43,7 +41,6 @@ document.getElementById('registerForm')?.addEventListener('submit', async (e) =>
     }
 });
 
-// Функция для добавления/удаления из избранного
 function toggleFavorite(productId) {
     const favoriteIcon = document.querySelector(`#product-${productId} .favorite-icon`);
 
@@ -51,7 +48,7 @@ function toggleFavorite(productId) {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${localStorage.getItem('token')}` // Используем токен авторизации
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
         },
         body: JSON.stringify({ productId })
     })
@@ -108,7 +105,6 @@ document.getElementById('checkoutButton')?.addEventListener('click', async () =>
         return;
     }
 
-    // Перенаправляем на страницу оформления заказа
     window.location.href = '/api/checkout';
 });
 
@@ -118,16 +114,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const registerLink = nav.querySelector('a[href="/register"]');
     const profileLink = nav.querySelector('a[href="/profile"]');
 
-    // Проверяем, есть ли токен в localStorage (он появляется после логина)
     const token = localStorage.getItem('token');
 
     if (token) {
-        // Если пользователь залогинен, скрываем "Login" и "Register"
         loginLink.style.display = 'none';
         registerLink.style.display = 'none';
-        profileLink.style.display = 'inline-block'; // Показываем "Profile"
+        profileLink.style.display = 'inline-block';
     } else {
-        // Если не залогинен, показываем "Login" и "Register", скрываем "Profile"
         loginLink.style.display = 'inline-block';
         registerLink.style.display = 'inline-block';
         profileLink.style.display = 'none';

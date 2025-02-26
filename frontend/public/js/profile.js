@@ -7,7 +7,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     try {
-        // Получение данных пользователя
         const userResponse = await fetch('/api/profile', {
             headers: { Authorization: `Bearer ${token}` },
         });
@@ -18,7 +17,6 @@ document.addEventListener('DOMContentLoaded', async () => {
             document.getElementById('email').value = user.email;
         }
 
-        // Получение заказов пользователя
         const ordersResponse = await fetch('/api/orders', {
             headers: { Authorization: `Bearer ${token}` },
         });
@@ -42,7 +40,6 @@ document.addEventListener('DOMContentLoaded', async () => {
                 .join('');
         }
 
-        // Получение избранных товаров
         const favoritesResponse = await fetch('/api/favorites', {
             headers: { Authorization: `Bearer ${token}` },
         });
@@ -70,7 +67,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         alert('Failed to load profile.');
     }
 
-    // Форма обновления профиля
     document.getElementById('editProfileForm').addEventListener('submit', async (e) => {
         e.preventDefault();
         const username = document.getElementById('username').value;
@@ -99,7 +95,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
 });
 
-// Функция добавления в корзину
 async function addToCart(productId) {
     const token = localStorage.getItem('token');
     if (!token) {
@@ -130,6 +125,6 @@ async function addToCart(productId) {
 }
 
 document.getElementById('logoutButton')?.addEventListener('click', () => {
-    localStorage.removeItem('token'); // Удаляем токен из localStorage
-    window.location.href = '/login'; // Перенаправляем на страницу логина
+    localStorage.removeItem('token');
+    window.location.href = '/login';
 });

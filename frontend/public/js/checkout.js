@@ -1,7 +1,6 @@
 const paymentForm = document.getElementById('payment-form');
 const submitButton = document.getElementById('submit-button');
 
-// Обработка отправки формы
 paymentForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     submitButton.disabled = true;
@@ -20,10 +19,8 @@ paymentForm.addEventListener('submit', async (e) => {
     }
 
     try {
-        // Получить общую сумму заказа
         const totalAmount = await fetchCartTotal();
 
-        // Создать заказ (фейковый платеж)
         const response = await fetch('/api/orders', {
             method: 'POST',
             headers: {
@@ -31,16 +28,16 @@ paymentForm.addEventListener('submit', async (e) => {
                 Authorization: `Bearer ${token}`,
             },
             body: JSON.stringify({
-                paymentIntentId: 'fake_payment_intent_id', // Фейковый ID платежа
+                paymentIntentId: 'fake_payment_intent_id',
                 totalAmount,
-                cardNumber, // Добавляем номер карты в заказ
+                cardNumber,
             }),
         });
 
         if (response.ok) {
             const order = await response.json();
             alert('Payment successful! Your order has been placed.');
-            generateReceipt(order); // Генерация чека
+            generateReceipt(order);
             window.location.href = '/products';
         } else {
             alert('Failed to place order.');
@@ -53,7 +50,6 @@ paymentForm.addEventListener('submit', async (e) => {
     }
 });
 
-// Функция для получения общей суммы заказа из корзины
 const fetchCartTotal = async () => {
     const token = localStorage.getItem('token');
     const response = await fetch('/api/cart', {
@@ -65,7 +61,6 @@ const fetchCartTotal = async () => {
     return cart.products.reduce((total, item) => total + item.product.price * item.quantity, 0);
 };
 
-// Функция для генерации чека
 const generateReceipt = (order) => {
     const receiptContent = `
     Order ID: ${order._id}
