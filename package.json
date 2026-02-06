@@ -18,7 +18,7 @@
   "homepage": "https://github.com/Abdurahmanit/shoe-store#readme",
   "description": "",
   "dependencies": {
-    "bcryptjs": "^3.0.2",
+    "bcryptjs": "^3.0.3",
     "dotenv": "^16.4.7",
     "ejs": "^3.1.10",
     "express": "^4.21.2",
